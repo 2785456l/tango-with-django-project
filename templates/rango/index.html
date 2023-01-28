@@ -27,19 +27,34 @@
             </div>
         
         <div>
-            <strong>Most viewed pages</strong><br>
+            <h2><strong>Most viewed pages</strong></h2>
         </div>
         <div>
             {% if pages %}
             <ul>
             {% for page in pages %}
-            <li><a href="/rango/category{{page.slug}}/">{{page.title}}</a></li>
+            <li><a href="{{ page.url }}">{{page.title}}</a></li>
             {% endfor %}
             </ul>
             {% else %}
             <strong>There are no pages present.</strong>
             {% endif %}
             </div>
+        
+            <div>
+                <h2><strong>Most liked pages</strong></h2>
+            </div>
+            <div>
+                {% if pagesLikes %}
+                <ul>
+                {% for page in pagesLikes %}
+                <li><a href="{{ page.url }}">{{page.title}}</a></li>
+                {% endfor %}
+                </ul>
+                {% else %}
+                <strong>There are no pages present.</strong>
+                {% endif %}
+                </div>
         
         <div>
             <a href="/rango/about/">About</a><br />

@@ -8,9 +8,13 @@ def index(request):
     context_dict = {}
     context_dict ['boldmessage'] = ( 'hey. howdy? Sup! ye')
     context_dict ['categories']= category_list
-    print(category_list)
-    page_list = Page.objects.order_by('-views')[:5]
-    context_dict ['pages'] = page_list
+
+    page_list_views = Page.objects.order_by('-views')[:5]
+    context_dict ['pages'] = page_list_views
+
+    page_list_likes = Page.objects.order_by('-likes')[:5]
+    context_dict ['pagesLikes'] = page_list_likes
+
     return render(request, 'rango/index.html', context=context_dict)
 def about(request):
     context_dict = {'boldmessage':'Oi'}
@@ -21,10 +25,13 @@ def show_category(request, category_name_slug):
     try:
         category = Category.objects.get(slug= category_name_slug)
         pages = Page.objects.filter(category=category)
+        pagesLikes = Page.objects.filter(category=category)
         context_dict['pages'] = pages
+        context_dict['pagesLikes'] = pagesLikes
         context_dict['category'] = category
     except Category.DoesNotExist:
         context_dict['category'] = None
         context_dict['page'] = None
+        context_dict['pageLikes'] = None
 
     return render(request, 'rango/category.html', context= context_dict)
